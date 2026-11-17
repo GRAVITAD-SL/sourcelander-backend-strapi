@@ -1,4 +1,4 @@
-const { hybridScraper } = require("./dist/src/services/scraper/hybrid-scraper.js");
+const { hybridScraper } = require("../dist/src/services/scraper/hybrid-scraper.js");
 
 (async () => {
   try {
