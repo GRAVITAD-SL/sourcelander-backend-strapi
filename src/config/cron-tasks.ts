@@ -1,4 +1,4 @@
-import { stagehandScraper } from "../services/scraper/stagehand-scraper";
+import { hybridScraper } from "../services/scraper/hybrid-scraper";
 
 const CRON_ENABLED = process.env.ENABLE_SCRAPER_CRON === "true";
 
@@ -48,11 +48,11 @@ async function runFullScraping(strapi: any) {
   for (const query of QUERIES_TO_SCRAPE) {
     try {
       const [workanaResults, hubstaffResults] = await Promise.all([
-        stagehandScraper.scrapeWorkana(query, 1).catch((e) => {
+        hybridScraper.scrapeWorkana(query, 1).catch((e) => {
           strapi.log.error(`Workana error for ${query}:`, e);
           return [];
         }),
-        stagehandScraper.scrapeHubstaff(query, 1).catch((e) => {
+        hybridScraper.scrapeHubstaff(query, 1).catch((e) => {
           strapi.log.error(`Hubstaff error for ${query}:`, e);
           return [];
         }),
@@ -115,7 +115,7 @@ async function runFullScraping(strapi: any) {
     }
   }
 
-  await stagehandScraper.close();
+  await hybridScraper.close();
   strapi.log.info("✅ Weekly scraping job completed");
 }
 

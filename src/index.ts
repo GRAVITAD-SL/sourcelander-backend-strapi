@@ -1,4 +1,4 @@
-import { stagehandScraper } from "./services/scraper/stagehand-scraper";
+import { hybridScraper } from "./services/scraper/hybrid-scraper";
 
 const BOOTSTRAP_ENABLED = process.env.ENABLE_INITIAL_SCRAPER === "true";
 
@@ -29,8 +29,8 @@ async function runInitialScraping(strapi: any) {
 
     try {
       const [workanaResults, hubstaffResults] = await Promise.all([
-        stagehandScraper.scrapeWorkana(query, 1).catch(() => []),
-        stagehandScraper.scrapeHubstaff(query, 1).catch(() => []),
+        hybridScraper.scrapeWorkana(query, 1).catch(() => []),
+        hybridScraper.scrapeHubstaff(query, 1).catch(() => []),
       ]);
 
       const allFreelancers = [
@@ -86,7 +86,7 @@ async function runInitialScraping(strapi: any) {
     }
   }
 
-  await stagehandScraper.close();
+  await hybridScraper.close();
   strapi.log.info("✅ Initial scraping completed");
 }
 

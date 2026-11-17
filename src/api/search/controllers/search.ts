@@ -1,4 +1,4 @@
-import { stagehandScraper } from "../../../services/scraper/stagehand-scraper";
+import { hybridScraper } from "../../../services/scraper/hybrid-scraper";
 
 const CACHE_TTL_HOURS = 24;
 const scrapingQueue = new Map<string, Promise<number>>();
@@ -73,8 +73,8 @@ async function scrapeAllPages(strapi: any, query: string): Promise<number> {
     strapi.log.info(`📡 Scraping all pages for: ${query}`);
 
     const [workanaResults, hubstaffResults] = await Promise.all([
-      stagehandScraper.scrapeWorkana(query, 3).catch(() => []),
-      stagehandScraper.scrapeHubstaff(query, 3).catch(() => []),
+      hybridScraper.scrapeWorkana(query, 3).catch(() => []),
+      hybridScraper.scrapeHubstaff(query, 3).catch(() => []),
     ]);
 
     const allFreelancers = [

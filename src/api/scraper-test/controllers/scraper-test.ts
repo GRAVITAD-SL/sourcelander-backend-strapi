@@ -1,4 +1,4 @@
-import { stagehandScraper } from "../../../services/scraper/stagehand-scraper";
+import { hybridScraper } from "../../../services/scraper/hybrid-scraper";
 
 export default {
   async test(ctx) {
@@ -12,12 +12,12 @@ export default {
 
       let results;
       if (source === "workana") {
-        results = await stagehandScraper.scrapeWorkana(query, 1);
+        results = await hybridScraper.scrapeWorkana(query, 1);
       } else {
-        results = await stagehandScraper.scrapeHubstaff(query, 1);
+        results = await hybridScraper.scrapeHubstaff(query, 1);
       }
 
-      await stagehandScraper.close();
+      await hybridScraper.close();
 
       ctx.body = {
         status: "success",
