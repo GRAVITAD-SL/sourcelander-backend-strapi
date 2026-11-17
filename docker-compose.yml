@@ -23,7 +23,11 @@ services:
       - ./package-lock.json:/opt/package-lock.json
       - ./public/uploads:/opt/app/public/uploads
     ports:
-      - '1337:1337'
+      # Puerto del HOST configurable (el dominio de Dokploy enruta por Traefik
+      # al puerto INTERNO 1337, no necesita esta publicación).
+      # En Dokploy setear STRAPI_PUBLISH_PORT para evitar colisiones con
+      # contenedores huérfanos; en local queda el 1337 por defecto.
+      - '${STRAPI_PUBLISH_PORT:-1337}:1337'
     networks:
       - strapi
     depends_on:
@@ -43,7 +47,7 @@ services:
       # Volumen con nombre (la DB de producción arranca fresca con PG17).
       - strapiDBData:/var/lib/postgresql/data/
     ports:
-      - '5432:5432'
+      - '${DB_PUBLISH_PORT:-5432}:5432'
     networks:
       - strapi
 
