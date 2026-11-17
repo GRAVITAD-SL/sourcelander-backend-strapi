@@ -262,6 +262,14 @@ class HybridScraperService {
   private browser: Browser | null = null;
   private stagehand: Stagehand | null = null;
 
+  /**
+   * En contenedores (Alpine) el Chromium lo provee el sistema y se apunta
+   * con CHROMIUM_EXECUTABLE_PATH; en el host Playwright usa el suyo propio.
+   */
+  private chromiumExecutable(): string | undefined {
+    return process.env.CHROMIUM_EXECUTABLE_PATH || undefined;
+  }
+
   private isHeadless(): boolean {
     const headlessEnv = process.env.STAGEHAND_HEADLESS;
     return headlessEnv === undefined
@@ -271,7 +279,11 @@ class HybridScraperService {
 
   private async getBrowser(): Promise<Browser> {
     if (this.browser?.isConnected()) return this.browser;
-    this.browser = await chromium.launch({ headless: this.isHeadless() });
+    const executablePath = this.chromiumExecutable();
+    this.browser = await chromium.launch({
+      headless: this.isHeadless(),
+      ...(executablePath ? { executablePath } : {}),
+    });
     return this.browser;
   }
 
@@ -312,7 +324,12 @@ class HybridScraperService {
 
       this.stagehand = new StagehandClient({
         env: "LOCAL",
-        localBrowserLaunchOptions: { headless: this.isHeadless() },
+        localBrowserLaunchOptions: {
+          headless: this.isHeadless(),
+          ...(this.chromiumExecutable()
+            ? { executablePath: this.chromiumExecutable() }
+            : {}),
+        },
         model: {
           modelName:
             process.env.STAGEHAND_MODEL_NAME || "openai/gpt-oss-120b",
