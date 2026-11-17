@@ -15,15 +15,15 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
-    "@browserbasehq/stagehand": "^3.0.7",
-    "@google/generative-ai": "^0.21.0",
-    "@strapi/plugin-cloud": "5.23.6",
-    "@strapi/plugin-users-permissions": "5.23.6",
-    "@strapi/strapi": "5.23.6",
-    "axios": "^1.13.2",
-    "better-sqlite3": "11.3.0",
+    "@browserbasehq/stagehand": "^3.7.3",
+    "@strapi/plugin-cloud": "5.62.0",
+    "@strapi/plugin-users-permissions": "5.62.0",
+    "@strapi/strapi": "5.62.0",
+    "axios": "^1.21.1",
+    "better-sqlite3": "13.2.0",
     "cross-env": "^10.1.0",
-    "pg": "^8.16.3",
+    "pg": "^8.23.1",
+    "playwright": "^1.57.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
@@ -31,13 +31,13 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^22",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "typescript": "^5"
   },
   "engines": {
-    "node": ">=18.0.0 <=22.x.x",
+    "node": ">=20.0.0 <=22.x.x",
     "npm": ">=6.0.0"
   },
   "strapi": {
